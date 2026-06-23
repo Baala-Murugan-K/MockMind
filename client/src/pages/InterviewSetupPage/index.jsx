@@ -177,7 +177,7 @@ const InterviewSetupPage = () => {
           <div className="step-panel" key="s1">
             <div className="roles-grid">
               {ROLES.map((role, i) => (
-                <button key={role.id}
+                <button key={role.id} type='button'
                   className={`role-card ${selectedRole?.id === role.id ? 'selected' : ''} ${role.isCustom ? 'custom-card' : ''}`}
                   style={{ '--role-color': role.color, animationDelay: `${i * 0.04}s` }}
                   onClick={() => handleRoleSelect(role)}>

@@ -74,6 +74,19 @@ body {
 .btn-danger:hover { opacity: 0.85; }
 .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
 
+/* Targeted hand cursor for interactive elements (no !important) */
+button, a, .btn, .role-card, .exp-card, .lang-card, .diff-card,
+.step-next-btn, .step-actions .btn, .dropdown-item, .nav-link,
+.theme-toggle, .nav-profile, [role="button"], label[for], .clickable {
+  cursor: pointer;
+}
+
+/* Helper class: add `.clickable` to any element to show a hand pointer */
+.clickable { cursor: pointer; }
+
+/* For elements intentionally non-interactive, keep default cursor */
+.setup-step-item { cursor: default; }
+
 .card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; }
 
 input, select, textarea {
