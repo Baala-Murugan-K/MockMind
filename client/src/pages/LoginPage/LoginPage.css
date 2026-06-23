@@ -32,7 +32,8 @@
 .form-group label { font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
 .login-btn { width: 100%; justify-content: center; padding: 13px; font-size: 15px; margin-top: 6px; font-family: var(--font-display); font-weight: 700; letter-spacing: 0.3px; }
 .login-toggle { margin-top: 20px; font-size: 14px; color: var(--text-muted); }
-.login-toggle button { background: none; border: none; color: var(--primary); cursor: pointer; font-size: 14px; font-weight: 600; }
+.login-toggle button { background: none; border: none; color: var(--primary); font-size: 14px; font-weight: 600; }
+.login-toggle button:active { cursor: pointer; }
 .login-toggle button:hover { text-decoration: underline; }
 .login-divider { display: flex; align-items: center; gap: 12px; margin: 4px 0; }
 .login-divider::before, .login-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
