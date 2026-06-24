@@ -71,10 +71,11 @@
 .setup-step-item {
   display: flex; align-items: center; gap: 8px;
   color: var(--text-dim); font-size: 13px; font-weight: 500;
-  transition: var(--transition); cursor: default;
+  transition: var(--transition);
 }
 .setup-step-item.active { color: var(--text); }
-.setup-step-item.done { color: var(--primary); cursor: pointer; }
+.setup-step-item.done { color: var(--primary); }
+.setup-step-item.done:active { cursor: pointer; }
 .step-num {
   width: 32px; height: 32px; border-radius: 50%;
   border: 2px solid currentColor;
@@ -123,12 +124,13 @@
   display: flex; flex-direction: column; align-items: center; gap: 8px;
   padding: 18px 10px; border-radius: 14px;
   background: var(--bg3); border: 1px solid var(--border);
-  cursor: pointer; transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   animation: cardIn 0.4s ease both;
   color: var(--text);
   pointer-events: auto;
   z-index: 3;
 }
+.role-card:active { cursor: pointer; }
 @keyframes cardIn {
   from { opacity: 0; transform: translateY(12px) scale(0.95); }
   to { opacity: 1; transform: translateY(0) scale(1); }
@@ -180,9 +182,10 @@
 }
 .custom-input-wrapper input:focus { box-shadow: none; border: none; }
 .custom-clear {
-  color: var(--text-muted); cursor: pointer; font-size: 20px; line-height: 1;
+  color: var(--text-muted); font-size: 20px; line-height: 1;
   padding: 4px; transition: color 0.2s;
 }
+.custom-clear:active { cursor: pointer; }
 .custom-clear:hover { color: var(--danger); }
 .custom-hint { font-size: 12px; color: var(--text-muted); margin-top: 8px; padding-left: 4px; }
 
@@ -193,9 +196,10 @@
   display: flex; flex-direction: column; align-items: center; gap: 8px;
   padding: 28px 16px; border-radius: 16px;
   background: var(--bg3); border: 1px solid var(--border);
-  cursor: pointer; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   color: var(--text); animation: cardIn 0.4s ease both;
 }
+.diff-card:active { cursor: pointer; }
 .diff-card, .exp-card, .lang-card { position: relative; z-index: 3; }
 .diff-card-glow {
   position: absolute; inset: 0; opacity: 0;
@@ -232,10 +236,11 @@
 /* Upload zone */
 .upload-zone {
   border: 2px dashed var(--border); border-radius: 16px;
-  padding: 48px 24px; cursor: pointer; text-align: center;
+  padding: 48px 24px; text-align: center;
   transition: all 0.3s; margin-bottom: 24px;
   display: flex; flex-direction: column; align-items: center; gap: 12px;
 }
+.upload-zone:active { cursor: pointer; }
 .upload-zone:hover, .upload-zone.drag-over {
   border-color: var(--primary); background: var(--primary-dim);
   transform: scale(1.01);
@@ -268,7 +273,8 @@
 .resume-ready-icon { font-size: 32px; }
 .resume-ready-name { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
 .resume-ready-status { font-size: 12px; color: var(--success); font-weight: 500; }
-.replace-btn { margin-left: auto; cursor: pointer; }
+.replace-btn { margin-left: auto; }
+.replace-btn:active { cursor: pointer; }
 
 /* Actions */
 .step-actions {
@@ -332,9 +338,10 @@
   position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px;
   padding: 18px 10px; border-radius: 12px;
   background: var(--bg3); border: 1px solid var(--border);
-  cursor: pointer; transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   color: var(--text); animation: cardIn 0.4s ease both;
 }
+.lang-card:active { cursor: pointer; }
 .lang-card:hover { border-color: var(--primary); transform: translateY(-3px); background: var(--primary-dim); }
 .lang-card.selected {
   border-color: var(--primary); background: var(--primary-dim);
@@ -368,9 +375,10 @@
   display: flex; flex-direction: column; align-items: center; gap: 10px;
   padding: 28px 20px; border-radius: 16px;
   background: var(--bg3); border: 2px solid var(--border);
-  cursor: pointer; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   color: var(--text); animation: cardIn 0.4s ease both; text-align: center;
 }
+.exp-card:active { cursor: pointer; }
 .exp-card-glow {
   position: absolute; inset: 0; opacity: 0;
   background: radial-gradient(circle at 50% 30%, var(--exp-color), transparent 65%);

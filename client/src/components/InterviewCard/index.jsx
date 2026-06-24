@@ -7,13 +7,21 @@ const InterviewCard = ({ interview, onDelete }) => {
     day: 'numeric', month: 'short', year: 'numeric'
   });
 
-  const handleClick = () => {
-    if (interview.status === 'completed') navigate(`/feedback/${interview._id}`);
-    else navigate(`/interview/${interview._id}`);
+  const handleCardClick = () => {
+    if (interview.status === 'completed') {
+      navigate(`/feedback/${interview._id}`);
+    } else {
+      navigate(`/interview/${interview._id}`);
+    }
+  };
+
+  const handleDeleteClick = (e) => {
+    e.stopPropagation(); // prevent card click from firing
+    onDelete(interview._id);
   };
 
   return (
-    <div className="interview-card" onClick={handleClick}>
+    <div className="interview-card" onClick={handleCardClick}>
       <div className="interview-card-top">
         <div>
           <div className="interview-role">{interview.role}</div>
@@ -28,10 +36,7 @@ const InterviewCard = ({ interview, onDelete }) => {
         {interview.overallScore != null && (
           <span className="interview-score">Score: {interview.overallScore.toFixed(1)}/10</span>
         )}
-        <button
-          className="btn btn-danger delete-btn"
-          onClick={(e) => { e.stopPropagation(); onDelete(interview._id); }}
-        >
+        <button type="button" className="btn btn-danger delete-btn" onClick={handleDeleteClick}>
           🗑
         </button>
       </div>

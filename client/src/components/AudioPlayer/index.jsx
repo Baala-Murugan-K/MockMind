@@ -1,14 +1,8 @@
 import { useEffect, useState } from 'react';
 
 const AudioPlayer = ({ audioBase64, autoPlay, onEnded }) => {
-  const [audioInstance, setAudioInstance] = useState(null);
-
   useEffect(() => {
     if (!audioBase64) return;
-    if (audioInstance) {
-      audioInstance.pause();
-      audioInstance.src = '';
-    }
 
     const blob = new Blob(
       [Uint8Array.from(atob(audioBase64), (c) => c.charCodeAt(0))],
@@ -16,17 +10,23 @@ const AudioPlayer = ({ audioBase64, autoPlay, onEnded }) => {
     );
     const url = URL.createObjectURL(blob);
     const audio = new Audio(url);
+    let cancelled = false;
 
     audio.onended = () => {
-      URL.revokeObjectURL(url);
-      onEnded?.();
+      if (!cancelled) onEnded?.();
     };
 
-    setAudioInstance(audio);
-    if (autoPlay) audio.play().catch(console.error);
+    if (autoPlay) {
+      audio.play().catch((err) => {
+        // Ignore AbortError — happens when component re-renders before play() resolves
+        if (err.name !== 'AbortError') console.error('Audio play error:', err);
+      });
+    }
 
     return () => {
+      cancelled = true;
       audio.pause();
+      audio.src = '';
       URL.revokeObjectURL(url);
     };
   }, [audioBase64]);

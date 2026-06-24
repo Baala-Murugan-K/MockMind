@@ -169,7 +169,10 @@ const InterviewPage = () => {
             </div>
           )}
 
-          <button className="btn btn-secondary end-btn" onClick={handleEndEarly}>
+          <button
+            className="btn btn-secondary end-btn"
+            onClick={(e) => { e.stopPropagation(); handleEndEarly(); }}
+          >
             End Early
           </button>
         </div>
@@ -178,14 +181,14 @@ const InterviewPage = () => {
         {pageState === 'listening' && currentQuestion && (
           <div className="answer-panel">
             <div className="answer-tabs">
-              <button className={`tab-btn ${inputMode === 'text' ? 'active' : ''}`} onClick={() => setInputMode('text')}>
+              <button type="button" className={`tab-btn ${inputMode === 'text' ? 'active' : ''}`} onClick={() => setInputMode('text')}>
                 ✍️ Text
               </button>
-              <button className={`tab-btn ${inputMode === 'voice' ? 'active' : ''}`} onClick={() => setInputMode('voice')}>
+              <button type="button" className={`tab-btn ${inputMode === 'voice' ? 'active' : ''}`} onClick={() => setInputMode('voice')}>
                 🎙️ Voice
               </button>
               {currentQuestion.type === 'code' && (
-                <button className={`tab-btn ${inputMode === 'code' ? 'active' : ''}`} onClick={() => setInputMode('code')}>
+                <button type="button" className={`tab-btn ${inputMode === 'code' ? 'active' : ''}`} onClick={() => setInputMode('code')}>
                   💻 Code
                 </button>
               )}

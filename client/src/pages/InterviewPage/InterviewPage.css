@@ -126,6 +126,12 @@
   padding: 24px; overflow-y: auto;
 }
 
+/* Ensure answer panel sits above the interviewer panel so clicks inside it
+   don't accidentally target controls (like End Early) in the left column */
+.interviewer-panel { z-index: 1; }
+.answer-panel { position: relative; z-index: 2; }
+.end-btn { z-index: 1; }
+
 /* Tabs */
 .answer-tabs {
   display: flex; gap: 6px;
@@ -135,8 +141,9 @@
 .tab-btn {
   padding: 8px 20px; border-radius: 9px; font-size: 13px; font-weight: 500;
   background: none; border: none; color: var(--text-muted);
-  cursor: pointer; transition: all 0.25s; display: flex; align-items: center; gap: 6px;
+  transition: all 0.25s; display: flex; align-items: center; gap: 6px;
 }
+.tab-btn:active { cursor: pointer; }
 .tab-btn:hover { color: var(--text); }
 .tab-btn.active {
   background: var(--primary); color: #fff;
@@ -164,9 +171,10 @@
   border-radius: 10px; padding: 0; overflow: hidden;
 }
 .hint-section summary {
-  cursor: pointer; color: var(--warning); font-size: 13px; font-weight: 600;
+  color: var(--warning); font-size: 13px; font-weight: 600;
   padding: 12px 16px; list-style: none; display: flex; align-items: center; gap: 8px;
 }
+.hint-section summary:active { cursor: pointer; }
 .hint-section p { padding: 0 16px 12px; font-size: 13px; color: var(--text-muted); line-height: 1.6; }
 
 /* Thinking panel */
@@ -219,7 +227,7 @@
   }
 
   .interviewer-avatar-section { flex-direction: row; align-items: center; gap: 14px; }
-  .avatar-rings { width: 56px; height: 56px; flex-shrink: 0; }
+  .avatar-rings { width: 56px; height: 56px; flex-shrink: 0; position: relative; z-index: 1; }
   .avatar-core { font-size: 16px; }
   .avatar-name { font-size: 14px; }
   .avatar-role { font-size: 10px; }
@@ -230,7 +238,7 @@
   .current-question-card { padding: 12px; margin-bottom: 10px; }
   .question-text { font-size: 13px; }
 
-  .end-btn { font-size: 11px; padding: 6px 12px; }
+  .end-btn { font-size: 11px; padding: 6px 12px; position: relative; z-index:10; margin-top: 0; align-self: flex-end; }
 
   .answer-panel { padding: 16px; gap: 12px; }
 

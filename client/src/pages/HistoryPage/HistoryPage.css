@@ -52,9 +52,10 @@
 .filter-tab {
   display: flex; align-items: center; gap: 8px;
   padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 500;
-  background: none; border: none; color: var(--text-muted); cursor: pointer;
+  background: none; border: none; color: var(--text-muted);
   transition: var(--transition);
 }
+.filter-tab:active { cursor: pointer; }
 .filter-tab:hover { color: var(--text); background: var(--bg3); }
 .filter-tab.active { background: var(--primary); color: #fff; }
 .filter-count {
@@ -83,9 +84,10 @@
 .page-btn {
   width: 36px; height: 36px; border-radius: 8px; font-size: 14px;
   background: var(--bg2); border: 1px solid var(--border); color: var(--text);
-  cursor: pointer; transition: var(--transition); font-weight: 500;
+  transition: var(--transition); font-weight: 500;
   display: flex; align-items: center; justify-content: center;
 }
+.page-btn:active { cursor: pointer; }
 .page-btn:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
 .page-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; }
 .page-btn:disabled { opacity: 0.3; cursor: not-allowed; }

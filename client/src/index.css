@@ -57,95 +57,166 @@ body {
   overflow-x: hidden;
 }
 
-.app-shell { min-height: 100vh; display: flex; flex-direction: column; }
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
 
+.app-shell { min-height: 100vh; display: flex; flex-direction: column; position: relative; z-index: 1; }
+
+/* ===== Buttons ===== */
 .btn {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 10px 22px; border-radius: var(--radius-sm);
   font-size: 14px; font-weight: 500; font-family: var(--font-body);
   border: none; transition: var(--transition);
   white-space: nowrap;
+  cursor: pointer;
+  position: relative; overflow: hidden;
 }
-.btn-primary { background: linear-gradient(135deg, var(--primary), #9f8fff); color: #fff; box-shadow: 0 4px 16px rgba(124,111,255,0.3); }
+.btn::after {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(255,255,255,0); transition: background 0.2s;
+  pointer-events: none;
+}
+.btn:hover::after { background: rgba(255,255,255,0.06); }
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), #9f8fff);
+  color: #fff; box-shadow: 0 4px 16px rgba(124,111,255,0.3);
+}
 .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,111,255,0.4); }
+
 .btn-secondary { background: var(--bg3); color: var(--text); border: 1px solid var(--border); }
 .btn-secondary:hover { border-color: var(--border-glow); background: var(--bg4); }
-.btn-danger { background: var(--danger); color: #fff; }
-.btn-danger:hover { opacity: 0.85; }
-.btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
 
-/* Show hand cursor only while clicking/activating (use :active) */
-button:active, a:active, .btn:active, .role-card:active, .exp-card:active, .lang-card:active, .diff-card:active,
-.step-next-btn:active, .step-actions .btn:active, .dropdown-item:active, .nav-link:active,
-.theme-toggle:active, .nav-profile:active, [role="button"]:active, label[for]:active, .clickable:active {
+.btn-danger { background: var(--danger); color: #fff; }
+.btn-danger:hover { opacity: 0.85; transform: translateY(-1px); }
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+.btn:active { transform: translateY(0) !important; }
+
+/* ===== Cursor rules — simple and reliable ===== */
+button:not(:disabled),
+a,
+.role-card,
+.diff-card,
+.exp-card,
+.lang-card,
+.tab-btn,
+.nav-link,
+.dropdown-item,
+.theme-toggle,
+.nav-profile,
+.filter-tab,
+.page-btn,
+.interview-card,
+.custom-clear,
+.upload-zone,
+.delete-btn,
+[role="button"] {
   cursor: pointer;
 }
 
-/* Helper class: add `.clickable` to any element to show a hand pointer while clicking */
-.clickable:active { cursor: pointer; }
+button:disabled,
+.btn:disabled {
+  cursor: not-allowed;
+}
 
-/* For elements intentionally non-interactive, keep default cursor */
-.setup-step-item { cursor: default; }
+input,
+textarea,
+select {
+  cursor: text;
+}
 
-.card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; }
+/* ===== Cards ===== */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  transition: border-color 0.2s;
+}
 
+/* ===== Inputs ===== */
 input, select, textarea {
   background: var(--bg3); border: 1px solid var(--border);
   border-radius: var(--radius-sm); color: var(--text);
   padding: 11px 16px; font-size: 14px; font-family: var(--font-body);
   width: 100%; outline: none; transition: var(--transition);
 }
-input:focus, select:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-dim); }
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-dim);
+}
 input::placeholder, textarea::placeholder { color: var(--text-dim); }
 
+/* ===== Badges ===== */
 .badge {
   display: inline-flex; align-items: center;
   padding: 3px 12px; border-radius: 20px;
-  font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 .badge-success { background: rgba(34,216,122,0.12); color: var(--success); border: 1px solid rgba(34,216,122,0.2); }
 .badge-warning { background: rgba(255,181,71,0.12); color: var(--warning); border: 1px solid rgba(255,181,71,0.2); }
 .badge-primary { background: var(--primary-dim); color: var(--primary); border: 1px solid rgba(124,111,255,0.2); }
 .badge-danger { background: rgba(255,87,87,0.12); color: var(--danger); border: 1px solid rgba(255,87,87,0.2); }
 
-.page-container { max-width: 1140px; margin: 0 auto; padding: 40px 20px; }
+/* ===== Layout ===== */
+.page-container { max-width: 1140px; margin: 0 auto; padding: 40px 28px; }
 
-.spinner { width: 36px; height: 36px; border: 2px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.7s linear infinite; margin: 0 auto; }
+/* ===== Loading ===== */
+.spinner {
+  width: 36px; height: 36px;
+  border: 2px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin: 0 auto;
+}
 @keyframes spin { to { transform: rotate(360deg); } }
-.loading-center { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; gap: 16px; color: var(--text-muted); }
 
-@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.loading-center {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  min-height: 60vh; gap: 16px; color: var(--text-muted);
+}
+
+/* ===== Animations ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 .page-enter { animation: fadeUp 0.4s ease forwards; }
 
-/* Mobile base */
-@media (max-width: 768px) {
-  .page-container { padding: 20px 16px; }
-  .card { padding: 16px; }
+@keyframes fadeIn {
+  from { opacity: 0; } to { opacity: 1; }
 }
 
-/* ===== GLOBAL MOBILE FIXES ===== */
-@media (max-width: 768px) {
-  .page-container { padding: 20px 16px; }
-  .btn { padding: 10px 16px; font-size: 13px; }
-}
-/* Add back to new index.css */
-body::before {
-  content: '';
-  position: fixed; inset: 0;
-  background-image: url("data:image/svg+xml,..."); /* copy from old */
-  pointer-events: none; z-index: 0; opacity: 0.4;
-}
-
-.btn::after {
-  content: ''; position: absolute; inset: 0;
-  background: rgba(255,255,255,0); transition: background 0.2s;
-}
-.btn:hover::after { background: rgba(255,255,255,0.06); }
-
+/* ===== Glow accent ===== */
 .glow-accent {
   position: fixed; width: 600px; height: 600px;
   border-radius: 50%; pointer-events: none; z-index: 0;
   filter: blur(120px); opacity: 0.06;
-  background: var(--primary); top: -100px; right: -100px;
+  background: var(--primary);
+  top: -100px; right: -100px;
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 768px) {
+  .page-container { padding: 20px 16px; }
+  .card { padding: 16px; }
+  .btn { padding: 10px 16px; font-size: 13px; }
 }

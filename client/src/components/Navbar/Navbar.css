@@ -42,14 +42,14 @@
 .theme-toggle {
   width: 38px; height: 38px; border-radius: 10px;
   background: var(--bg3); border: 1px solid var(--border);
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   transition: var(--transition); font-size: 16px;
 }
 .theme-toggle:hover { border-color: var(--border-glow); transform: rotate(20deg); }
 
 .nav-profile {
   display: flex; align-items: center; gap: 8px;
-  cursor: pointer; padding: 6px 10px; border-radius: 10px;
+  padding: 6px 10px; border-radius: 10px;
   border: 1px solid var(--border); background: var(--bg3);
   transition: var(--transition); position: relative;
 }
@@ -95,9 +95,10 @@
   display: flex; align-items: center; gap: 10px;
   width: 100%; padding: 10px 12px; border-radius: 8px;
   background: none; border: none; color: var(--text);
-  font-size: 13px; font-family: var(--font-body); cursor: pointer;
+  font-size: 13px; font-family: var(--font-body);
   transition: var(--transition); text-align: left; position: relative;
 }
+.dropdown-item:active { cursor: pointer; }
 .dropdown-item:hover { background: var(--bg3); }
 .dropdown-item.active { background: var(--primary-dim); color: var(--primary); }
 .dropdown-item.danger { color: var(--danger); }
